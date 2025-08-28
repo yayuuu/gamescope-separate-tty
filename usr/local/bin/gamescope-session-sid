@@ -1,0 +1,15 @@
+#!/bin/bash
+
+get_appid() {
+  local line="$*"
+  sed -n 's/.*AppId=\([0-9]\+\).*/\1/p' <<<"$line"
+}
+
+APPID="$(get_appid "$@")"
+
+sleep 3
+pkexec chvt 3
+echo /usr/games/steam -nochatui -nofriendsui -applaunch $APPID > /tmp/gamescopecommand
+chmod 777 /tmp/gamescopecommand
+sleep 5
+rm /tmp/gamescopecommand
