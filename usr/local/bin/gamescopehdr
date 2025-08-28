@@ -2,7 +2,7 @@
 
 echo "Closing Steam"
 #/usr/bin/pkill -u daniel -f steam
-ps -u | grep Steam/ubuntu12_32/steam | grep -v grep | awk '{print $2}' | xargs -r kill -9
+ps -ux | grep Steam/ubuntu12_32/steam | grep -v grep | awk '{print $2}' | xargs -r kill -9
 echo "Steam closed"
 
 export MESA_VK_DEVICE_SELECT=Intel
