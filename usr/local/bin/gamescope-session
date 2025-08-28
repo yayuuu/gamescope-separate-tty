@@ -1,0 +1,7 @@
+#!/bin/bash
+
+if [[ "$(tty)" == "/dev/tty3" ]]; then
+  "$@"
+else
+  /usr/local/bin/gamescope-session-sid "$@"
+fi
