@@ -7,7 +7,6 @@ get_appid() {
 
 APPID="$(get_appid "$@")"
 
-sleep 3
 pkexec chvt 3
 echo /usr/games/steam -nochatui -nofriendsui -applaunch $APPID > /tmp/gamescopecommand
 chmod 777 /tmp/gamescopecommand
