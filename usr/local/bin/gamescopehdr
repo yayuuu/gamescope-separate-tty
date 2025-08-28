@@ -1,0 +1,22 @@
+#!/bin/bash
+
+echo "Closing Steam"
+#/usr/bin/pkill -u daniel -f steam
+ps -u | grep Steam/ubuntu12_32/steam | grep -v grep | awk '{print $2}' | xargs -r kill -9
+echo "Steam closed"
+
+export MESA_VK_DEVICE_SELECT=Intel
+export MESA_GL_DEVICE_SELECT=Intel
+export WLR_BACKENDS=drm
+export WLR_RENDERER=vulkan
+export WLR_DRM_DEVICES=/dev/dri/card0:/dev/dri/card1
+unset DISPLAY
+unset WAYLAND_DISPLAY
+
+echo "Starting gamescope with command $@"
+exec /usr/games/gamescope -f --backend drm -O DP-1 \
+      --adaptive-sync -W 3440 -H 1440 -r 170 \
+      --hdr-enabled --hdr-itm-enable \
+      --hdr-itm-sdr-nits 200 --hdr-itm-target-nits 1100 --hdr-sdr-content-nits 400 \
+      --force-windows-fullscreen \
+      -- env DXVK_FILTER_DEVICE_NAME="NVIDIA" __NV_PRIME_RENDER_OFFLOAD=1 __GLX_VENDOR_LIBRARY_NAME=nvidia DXVK_HDR=1 "$@"
